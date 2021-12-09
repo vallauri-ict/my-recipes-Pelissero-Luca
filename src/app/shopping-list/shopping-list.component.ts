@@ -8,7 +8,7 @@ import { IngredientModel } from '../Models/ingredient.model';
 })
 export class ShoppingListComponent implements OnInit {
 
-  ingredients:IngredientModel[]=[
+  ingredients: IngredientModel[] = [
     new IngredientModel("Pasta", 500),
     new IngredientModel("Pomodoro", 2)
   ]
@@ -16,6 +16,19 @@ export class ShoppingListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onIngredientAdded(newIngredient: IngredientModel) {
+    let ingredientFound = false;
+    for (const item of this.ingredients) {
+      if (item.name.toLocaleUpperCase == newIngredient.name.toLocaleUpperCase) {
+        ingredientFound = true;
+        item.amount += newIngredient.amount;
+      }
+    }
+    if (!ingredientFound) {
+      this.ingredients.push(newIngredient);
+    }
   }
 
 }
